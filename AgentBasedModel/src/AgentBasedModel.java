@@ -1,4 +1,5 @@
 import graph.Graph;
+import components.Net;
 
 public class AgentBasedModel {
 	
@@ -9,6 +10,7 @@ public class AgentBasedModel {
 	 graph.printParameters();
 	 graph.printAdjcencencyList();
 	 graph.printComponents();
+	// Net net = new Net(graph);
 	}
 	
 }

@@ -116,4 +116,10 @@ public class Graph {
 		}
 				
 	}
+	public List<ArrayList<Integer>> returnList(int num){
+		return adjencencyList;
+	}
+	public int returnVertices() {
+		return numOfVertices;
+	}
 }
