@@ -93,7 +93,7 @@ public class Graph {
 	}
 	
 	
-	public void getComponents()						//Zwraca liste componentow
+	public void getComponents()						//Dodaje liste componentow
 	{
 	
 	 for(int i=0; i<numOfVertices; i++)
@@ -103,7 +103,13 @@ public class Graph {
 			 numOfComponents++;
 		 }
 	}
-	
+	public ArrayList<Integer> returnComponents(int num) //Zwraca listê komponentów danego segmentu 
+	{
+		return components.get(num);
+	}
+	public int returnNumOfComponents() {
+		return components.size();
+	}
 	public void printComponents()
 	{
 	 System.out.println(numOfComponents + " components:");
@@ -116,10 +122,12 @@ public class Graph {
 		}
 				
 	}
-	public List<ArrayList<Integer>> returnList(int num){
+	public List<ArrayList<Integer>> returnList(int num)
+	{
 		return adjencencyList;
 	}
-	public int returnVertices() {
+	public int returnVertices() 
+	{
 		return numOfVertices;
 	}
 }

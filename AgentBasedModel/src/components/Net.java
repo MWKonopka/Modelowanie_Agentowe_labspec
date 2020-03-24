@@ -15,4 +15,7 @@ public class Net {
 			Nodes.get(i).showNeighbours();
 		}
 	}
+	public Node returnNode(int num) {
+		return Nodes.get(num);
+	}
 }

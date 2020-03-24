@@ -8,9 +8,10 @@ public class Node {
 	private int designation; //numer porz¹dkowy
 	private ArrayList<Integer> neighbours; //somsiedzi
 	private int state; //Stan wêz³a opisyj¹cy jego rolê spoœród kupuj¹cy, sprzedaj¹cy oraz nieaktywny odpowiednia -1,1,0
-	
+	private boolean checked;
 	//tworzy wêze³ pobieraj¹c listê s¹siedztwa i numer porz¹dkowy wêz³a
 	public Node(int num, List<ArrayList<Integer>> list) {
+		checked = false;
 		designation = num;
 		neighbours = new ArrayList<Integer>();
 		neighbours = list.get(num);
@@ -23,8 +24,15 @@ public class Node {
 	//Zmiana stanu wêz³a z danym prawdopodobieñstwem
 	public void changeState(double prob) {
 		Random rand = new Random();
-		if(rand.nextDouble() <= prob) {
+		double chance = rand.nextDouble();
+		if(chance <= prob) {
 			state = rand.nextInt(3) - 1;
+			while(state == 0) {
+				state = rand.nextInt(3) - 1;
+			}
+		}
+		if(chance > 1 - 2*prob) {
+			state = 0;
 		}
 	}
 	//Zwraca stan wêz³a
@@ -39,8 +47,18 @@ public class Node {
 	public void showNeighbours() {
 		System.out.println("Somsiedzi node " + designation);
 		for(int i=0;i<neighbours.size();i++) {
-			System.out.println( neighbours.get(i) + " ");
+			System.out.print( neighbours.get(i) + " ");
 		}
+		System.out.println(" ");
+	}
+	public int returnNumber() {
+		return designation;
+	}
+	public void checked() {
+		checked = true;
+	}
+	public boolean check() {
+		return checked;
 	}
 }
 
