@@ -19,7 +19,7 @@ public class Graph {
 	public Graph(int nVertices, double probOfConnect)			//Tworzenie listy sÄ…siedztwa
 	{
 		this.numOfVertices = nVertices;
-		this.probOfConnection = probOfConnect;
+		this.probOfConnection = probOfConnect/nVertices;
 		adjencencyList = new ArrayList<ArrayList<Integer>>();
 		components = new ArrayList<ArrayList<Integer>>();
 		numOfComponents = 0;
@@ -103,12 +103,15 @@ public class Graph {
 			 numOfComponents++;
 		 }
 	}
-	public ArrayList<Integer> returnComponents(int num) //Zwraca listê komponentów danego segmentu 
+	public ArrayList<Integer> returnComponent(int num) //Zwraca listê uczestników komponentu
 	{
 		return components.get(num);
 	}
+	public List<ArrayList<Integer>> returnComponents(){
+		return components;
+	}
 	public int returnNumOfComponents() {
-		return components.size();
+		return numOfComponents;
 	}
 	public void printComponents()
 	{
