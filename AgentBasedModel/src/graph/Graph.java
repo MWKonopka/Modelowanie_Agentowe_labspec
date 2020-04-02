@@ -103,7 +103,7 @@ public class Graph {
 			 numOfComponents++;
 		 }
 	}
-	public ArrayList<Integer> returnComponent(int num) //Zwraca listê uczestników komponentu
+	public ArrayList<Integer> returnComponent(int num) //Zwraca listï¿½ uczestnikï¿½w komponentu
 	{
 		return components.get(num);
 	}

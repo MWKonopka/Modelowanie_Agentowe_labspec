@@ -1,5 +1,9 @@
 package components;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +21,7 @@ public class Net {
 			nodes.add(new Node(i,graph.returnList(i)));
 		}
 	}
+	
 	public Node returnNode(int num) {
 		return nodes.get(num);
 	}
@@ -35,6 +40,7 @@ public class Net {
 		}
 		return deltaX;
 	}
+	
 	public List<ArrayList<Integer>> symulateTimeChange(int timeSteps, double probOfChange){
 		ArrayList<Integer> iterations = new ArrayList<Integer>();
 		ArrayList<Integer> Changes = new ArrayList<Integer>();
@@ -47,10 +53,21 @@ public class Net {
 		returned.add(Changes);
 		return returned;
 	}
+	
 	public void printReturns(int timeSteps, double probOfChange) {
 		List<ArrayList<Integer>> printy = symulateTimeChange(timeSteps, probOfChange);
 		for(int i=0;i < printy.get(1).size();i++) {
 			System.out.println("Iteracja " + i +": " + printy.get(1).get(i));
 		}
+	}
+	
+	public void saveReturns(int timeSteps, double probOfChange, String filename) throws IOException {
+		List<ArrayList<Integer>> printy = symulateTimeChange(timeSteps, probOfChange);
+		PrintWriter writer = new PrintWriter(filename, "UTF-8");
+		writer.println("deltaX");
+		for(int i=0;i < printy.get(1).size();i++) {
+			writer.println(printy.get(1).get(i));
+		}
+		writer.close();
 	}
 }
