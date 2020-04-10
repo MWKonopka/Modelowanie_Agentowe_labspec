@@ -9,6 +9,8 @@ public class Node {
 	private ArrayList<Integer> neighbours; //somsiedzi
 	private int state; //Stan wêz³a opisyj¹cy jego rolê spoœród kupuj¹cy, sprzedaj¹cy oraz nieaktywny odpowiednia -1,1,0
 	private boolean checked;
+	private Random rand;
+	private double chance;
 	//tworzy wêze³ pobieraj¹c listê s¹siedztwa i numer porz¹dkowy wêz³a
 	public Node(int num, List<ArrayList<Integer>> list) {
 		checked = false;
@@ -16,6 +18,8 @@ public class Node {
 		neighbours = new ArrayList<Integer>();
 		neighbours = list.get(num);
 		state = 0;
+		rand = new Random();
+		chance = 0;
 		}
 	//Ustawienie stanu wêz³a
 	public void setState(int num) {
@@ -23,15 +27,14 @@ public class Node {
 	}
 	//Zmiana stanu wêz³a z danym prawdopodobieñstwem
 	public void changeState(double prob) {
-		Random rand = new Random();
-		double chance = rand.nextDouble();
-		if(chance <= prob) {
-			state = rand.nextInt(3) - 1;
-			while(state == 0) {
-				state = rand.nextInt(3) - 1;
+		chance = rand.nextDouble();
+		if(chance <= 2*prob) {
+			state = rand.nextInt(2) - 1;
+			if(state == 0) {
+				state++;
 			}
 		}
-		if(chance > 1 - 2*prob) {
+		else {
 			state = 0;
 		}
 	}

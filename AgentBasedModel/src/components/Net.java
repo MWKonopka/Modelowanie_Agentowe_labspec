@@ -69,5 +69,6 @@ public class Net {
 			writer.println(printy.get(1).get(i));
 		}
 		writer.close();
+		System.out.println("Done");
 	}
 }
