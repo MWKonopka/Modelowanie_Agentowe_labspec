@@ -25,14 +25,25 @@ public class Net {
 	public Node returnNode(int num) {
 		return nodes.get(num);
 	}
-	public int symulate(double probOfChange) {
+	public int symulate(double probOfChange, int choice) {
 		int state = 0;
 		int deltaX = 0;
-		for(int i=0;i<components.size();i++) {
-			nodes.get(components.get(i).get(0)).changeState(probOfChange);
-			state = nodes.get(components.get(i).get(0)).returnState();
-			for(int j=0;j<components.get(i).size();j++) {
-				nodes.get(components.get(i).get(j)).setState(state);
+		if(choice == 0) {
+			for(int i=0;i<components.size();i++) {
+				nodes.get(components.get(i).get(0)).changeState(probOfChange,choice);
+				state = nodes.get(components.get(i).get(0)).returnState();
+				for(int j=0;j<components.get(i).size();j++) {
+					nodes.get(components.get(i).get(j)).setState(state);
+				}
+			}
+		}
+		if(choice == 1) {
+			for(int i=0;i<components.size();i++) {
+				nodes.get(components.get(i).get(0)).changeState(components.get(i).size(),choice);
+				state = nodes.get(components.get(i).get(0)).returnState();
+				for(int j=0;j<components.get(i).size();j++) {
+					nodes.get(components.get(i).get(j)).setState(state);
+				}
 			}
 		}
 		for(int i=0;i<nodes.size();i++) {
@@ -41,28 +52,28 @@ public class Net {
 		return deltaX;
 	}
 	
-	public List<ArrayList<Integer>> symulateTimeChange(int timeSteps, double probOfChange){
+	public List<ArrayList<Integer>> symulateTimeChange(int timeSteps, double probOfChange, int choice){
 		ArrayList<Integer> iterations = new ArrayList<Integer>();
 		ArrayList<Integer> Changes = new ArrayList<Integer>();
 		List<ArrayList<Integer>> returned = new ArrayList<ArrayList<Integer>>();
 		for(int i=0;i<timeSteps;i++) {
 			iterations.add(i);
-			Changes.add(symulate(probOfChange));
+			Changes.add(symulate(probOfChange,choice));
 		}
 		returned.add(iterations);
 		returned.add(Changes);
 		return returned;
 	}
 	
-	public void printReturns(int timeSteps, double probOfChange) {
-		List<ArrayList<Integer>> printy = symulateTimeChange(timeSteps, probOfChange);
+	public void printReturns(int timeSteps, double probOfChange, int choice) {
+		List<ArrayList<Integer>> printy = symulateTimeChange(timeSteps, probOfChange, choice);
 		for(int i=0;i < printy.get(1).size();i++) {
 			System.out.println("Iteracja " + i +": " + printy.get(1).get(i));
 		}
 	}
 	
-	public void saveReturns(int timeSteps, double probOfChange, String filename) throws IOException {
-		List<ArrayList<Integer>> printy = symulateTimeChange(timeSteps, probOfChange);
+	public void saveReturns(int timeSteps, double probOfChange, int choice, String filename) throws IOException {
+		List<ArrayList<Integer>> printy = symulateTimeChange(timeSteps, probOfChange, choice);
 		PrintWriter writer = new PrintWriter(filename, "UTF-8");
 		writer.println("deltaX");
 		for(int i=0;i < printy.get(1).size();i++) {

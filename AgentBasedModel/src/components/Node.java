@@ -25,17 +25,31 @@ public class Node {
 	public void setState(int num) {
 		state = num;
 	}
-	//Zmiana stanu wêz³a z danym prawdopodobieñstwem
-	public void changeState(double prob) {
-		chance = rand.nextDouble();
-		if(chance <= 2*prob) {
-			state = rand.nextInt(2) - 1;
-			if(state == 0) {
-				state++;
+	//Zmiana stanu wêz³a z danym prawdopodobieñstwem. chice wybiera pêtlê. 0 to domyœlny model CB (prob to prawdopodobieñstwo, 1 to self-dependent activity (prob to rozmiar klastra)
+	public void changeState(double prob, int choice) {
+		if(choice == 0) {
+			chance = rand.nextDouble();
+			if(chance <= 2*prob) {
+				state = rand.nextInt(2);
+				if(state == 0) {
+					state--;
+				}
+			}
+			else {
+				state = 0;
 			}
 		}
-		else {
-			state = 0;
+		if(choice == 1) {
+			chance = rand.nextDouble();
+			if(chance <= 1/(2*Math.sqrt(prob))) {
+				state = rand.nextInt(2);
+				if(state == 0) {
+					state--;
+				}
+			}
+			else {
+				state = 0;
+			}
 		}
 	}
 	//Zwraca stan wêz³a
