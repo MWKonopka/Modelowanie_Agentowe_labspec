@@ -74,12 +74,11 @@ public class Net {
 	
 	public void saveReturns(int timeSteps, double probOfChange, int choice, String filename) throws IOException {
 		List<ArrayList<Integer>> printy = symulateTimeChange(timeSteps, probOfChange, choice);
-		PrintWriter writer = new PrintWriter(filename, "UTF-8");
-		writer.println("deltaX");
+		FileWriter FW = new FileWriter(filename, true);
+		PrintWriter writer = new PrintWriter(FW);
 		for(int i=0;i < printy.get(1).size();i++) {
 			writer.println(printy.get(1).get(i));
 		}
 		writer.close();
-		System.out.println("Done");
 	}
 }
